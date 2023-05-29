@@ -1,0 +1,93 @@
+on:
+    push:
+        branches-ignore:
+        - "master"
+        - "dependabot/**"
+        paths-ignore:
+        - ".*"
+        - "README.md"
+        - "tsconfig.json"
+        - "nodemon.json"
+
+permissions:
+    checks: write
+    contents: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: ".nvmrc"
+        cache: "pnpm"
+
+    - name: Configure git
+      run: |
+        git config --global user.name github-actions[bot]
+        git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Run ESLint
+      run: node_modules/.bin/eslint --fix .
+
+    - name: Check if files have been modified
+      id: mod_check
+      run: |
+        [[ $(git status -s | wc -l) -le 1 ]] \
+        && echo "is-dirty=false" >> "$GITHUB_OUTPUT" \
+        || echo "is-dirty=true" >> "$GITHUB_OUTPUT"
+
+    - name: Commit and push changes
+      if: steps.mod_check.outputs.is-dirty == 'true'
+      run: |
+        git add .
+        git commit -m "Apply linter fixes"
+        git push
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: pnpm/action-setup@v2
+      with:
+        version: latest
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: ".nvmrc"
+        cache: "pnpm"
+
+    - name: Configure git
+      run: |
+        git config --global user.name github-actions[bot]
+        git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Run Prettier
+      run: node_modules/.bin/prettier -w .
+
+    - name: Check if files have been modified
+      id: mod_check
+      run: |
+        [[ $(git status -s | wc -l) -le 1 ]] \
+        && echo "is-dirty=false" >> "$GITHUB_OUTPUT" \
+        || echo "is-dirty=true" >> "$GITHUB_OUTPUT"
+
+    - name: Commit and push changes
+      if: steps.mod_check.outputs.is-dirty == 'true'
+      run: |
+        git add .
+        git commit -m "Apply prettier formatting"
+        git push

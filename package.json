@@ -1,0 +1,41 @@
+{
+  "name": "ryujinx-ldn-website",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Ryujinx",
+  "license": "MIT",
+  "description": "Ryujinx LDN website",
+  "repository": {
+    "url": "https://github.com/Ryujinx/Ryujinx-Ldn-Website"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "format": "prettier -w .",
+    "lint": "eslint --fix .",
+    "build": "tsc",
+    "prestart": "pnpm build",
+    "start": "node .",
+    "dev": "pnpm build && pnpm start",
+    "serve": "nodemon",
+    "prepack": "pnpm build"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "~4.18.2",
+    "express-actuator": "^1.8.4",
+    "winston": "^3.9.0"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/express": "^4.17.17",
+    "@types/express-actuator": "^1.8.0",
+    "@types/node": "^20.2.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "nodemon": "^2.0.22",
+    "prettier": "2.8.8",
+    "typescript": "^5.0.4"
+  }
+}

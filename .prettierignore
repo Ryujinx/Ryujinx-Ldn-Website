@@ -1,0 +1,6 @@
+dist/
+public/
+*.js
+.github/
+pnpm-lock.yaml
+nodemon.json
