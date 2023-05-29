@@ -20,7 +20,7 @@ export const logger = loggerInstance.child({
 
 // Init express server
 export const app = express();
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 // This is set by NODE_ENV
 if (app.get("env") === "production") {
