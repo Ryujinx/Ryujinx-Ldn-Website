@@ -4,36 +4,35 @@ import { redisClient } from "./app";
 const router = Router();
 
 router.get("/", async (req, res, next) => {
-    const result = await redisClient.json.get("ldn");
+  const result = await redisClient.json.get("ldn");
 
-    if (result == null || typeof (result) != "object") {
-        return res.sendStatus(404);
-    }
+  if (result == null || typeof result != "object") {
+    return res.sendStatus(404);
+  }
 
-    return res.send(result);
+  return res.send(result);
 });
 
 router.get("/public_games", async (req, res, next) => {
-    let gameFilter = "";
+  let gameFilter = "";
 
-    if (req.query.titleid != null && (req.query.titleid as string)?.length > 0) {
-        gameFilter = req.query.titleid as string;
-    }
+  if (req.query.titleid != null && (req.query.titleid as string)?.length > 0) {
+    gameFilter = req.query.titleid as string;
+  }
 
-    const results = await redisClient.json.get("games");
+  const results = await redisClient.json.get("games");
 
-    if (results == null || typeof (results) != "object") {
-        return res.sendStatus(404);
-    }
+  if (results == null || typeof results != "object") {
+    return res.sendStatus(404);
+  }
 
-    const games = Object.entries(results).map(([_, game]) => game);
+  const games = Object.entries(results).map(([_, game]) => game);
 
-    if (gameFilter.length > 0) {
-        return res.send(games.filter((game) => game.title_id === gameFilter));
-    }
+  if (gameFilter.length > 0) {
+    return res.send(games.filter((game) => game.title_id === gameFilter));
+  }
 
-    return res.send(games);
+  return res.send(games);
 });
-
 
 export default router;
