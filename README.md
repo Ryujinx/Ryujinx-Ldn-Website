@@ -16,9 +16,16 @@
     </a>
 </p>
 
-## Changelog
+## Configuration
 
-The complete list of changes is available [here](CHANGELOG.md)
+This app can be configured using the following environment variables:
+
+| Name        | Description                                                                               | Default value | Notes                                                                  |
+| :---------- | ----------------------------------------------------------------------------------------- | :-----------: | ---------------------------------------------------------------------- |
+| `NODE_ENV`  | This should be set to `production` or `development` depending on the current environment. |     `""`      |                                                                        |
+| `HOST`      | The address this server should be listening on.                                           | `"127.0.0.1"` |                                                                        |
+| `PORT`      | The port this server should be using.                                                     |    `3000`     |                                                                        |
+| `REDIS_URL` | The URL of the redis server.                                                              |     `""`      | Format: `redis[s]://[[username][:password]@][host][:port][/db-number]` |
 
 ## Contribute
 
