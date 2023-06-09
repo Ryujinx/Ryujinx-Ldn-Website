@@ -4,6 +4,10 @@ import { redisClient } from "./app";
 const router = Router();
 
 router.get("/", async (req, res, next) => {
+  if (!redisClient.isOpen) {
+    await redisClient.connect();
+  }
+
   const result = await redisClient.json.get("ldn");
 
   if (result == null || typeof result != "object") {
@@ -18,6 +22,10 @@ router.get("/public_games", async (req, res, next) => {
 
   if (req.query.titleid != null && (req.query.titleid as string)?.length > 0) {
     gameFilter = req.query.titleid as string;
+  }
+
+  if (!redisClient.isOpen) {
+    await redisClient.connect();
   }
 
   const results = await redisClient.json.get("games");
