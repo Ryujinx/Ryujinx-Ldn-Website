@@ -27,7 +27,7 @@ export const redisClient = createClient({
 });
 
 redisClient.on("error", (err: Error) =>
-  winston.error("An error occurred.", { source: "Redis client", error: err })
+  loggerInstance.error("An error occurred.", { source: "Redis client", error: err })
 );
 
 // Init express server
