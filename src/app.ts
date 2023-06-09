@@ -23,11 +23,15 @@ export const logger = loggerInstance.child({
 // Init Redis client
 export const redisClient = createClient({
   url: process.env.REDIS_URL,
-  readonly: true,
+  // NOTE: Enable this if we ever start using cluster mode
+  // readonly: true,
 });
 
 redisClient.on("error", (err: Error) =>
-  loggerInstance.error("An error occurred.", { source: "Redis client", error: err })
+  loggerInstance.error(err.message, {
+    source: "Redis client",
+    stacktrace: err.stack,
+  })
 );
 
 // Init express server
