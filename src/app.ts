@@ -1,6 +1,12 @@
 import express from "express";
 import actuator from "express-actuator";
-import { createClient } from "redis";
+import {
+  RedisClientOptions,
+  RedisFunctions,
+  RedisModules,
+  RedisScripts,
+  createClient,
+} from "redis";
 import winston from "winston";
 import apiRouter from "./api";
 import { errorLogger, requestLogger } from "./middleware";
@@ -20,12 +26,26 @@ export const logger = loggerInstance.child({
   source: "Node",
 });
 
-// Init Redis client
-export const redisClient = createClient({
-  url: process.env.REDIS_URL,
+const redisClientOptions: RedisClientOptions<
+  RedisModules,
+  RedisFunctions,
+  RedisScripts
+> = {
   // NOTE: Enable this if we ever start using cluster mode
   // readonly: true,
-});
+};
+
+// Prefer unix socket over REDIS_URL
+if (process.env.REDIS_SOCKET != null && process.env.REDIS_SOCKET.length > 0) {
+  redisClientOptions.socket = {
+    path: process.env.REDIS_SOCKET,
+  };
+} else {
+  redisClientOptions.url = process.env.REDIS_URL;
+}
+
+// Init Redis client
+export const redisClient = createClient(redisClientOptions);
 
 redisClient.on("error", (err: Error) =>
   loggerInstance.error(err.message, {
