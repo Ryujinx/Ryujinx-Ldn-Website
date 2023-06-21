@@ -10,6 +10,11 @@ import {
 import winston from "winston";
 import apiRouter from "./api";
 import { errorLogger, requestLogger } from "./middleware";
+import { mkdirSync } from "fs";
+
+// Prepare data directory
+const dataDirectory = process.env.DATA_PATH ?? "data";
+mkdirSync(dataDirectory, { recursive: true });
 
 // Init logger
 const loggerInstance = winston.createLogger({
@@ -17,7 +22,7 @@ const loggerInstance = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     new winston.transports.File({
-      filename: `data/ryujinx-ldn-website.log`,
+      filename: `${dataDirectory}/ryujinx-ldn-website.log`,
     }),
   ],
 });

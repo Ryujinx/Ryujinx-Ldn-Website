@@ -20,14 +20,15 @@
 
 This app can be configured using the following environment variables:
 
-| Name           | Description                                                                               | Default value | Notes                                                                  |
-| :------------- | ----------------------------------------------------------------------------------------- | :-----------: | ---------------------------------------------------------------------- |
-| `NODE_ENV`     | This should be set to `production` or `development` depending on the current environment. |     `""`      |                                                                        |
-| `SOCKET_PATH`  | The path to the unix socket this server should be listening on.                           |     `""`      | If this is not empty `HOST` and `PORT` will be ignored.                |
-| `HOST`         | The address this server should be listening on.                                           | `"127.0.0.1"` |                                                                        |
-| `PORT`         | The port this server should be using.                                                     |    `3000`     |                                                                        |
-| `REDIS_URL`    | The URL of the redis server.                                                              |     `""`      | Format: `redis[s]://[[username][:password]@][host][:port][/db-number]` |
-| `REDIS_SOCKET` | The path to the unix socket of the redis server.                                          |     `""`      | If this is not empty `REDIS_URL` will be ignored.                      |
+| Name           | Description                                                                               | Default value | Notes                                                                                                        |
+| :------------- | ----------------------------------------------------------------------------------------- | :-----------: | ------------------------------------------------------------------------------------------------------------ |
+| `NODE_ENV`     | This should be set to `production` or `development` depending on the current environment. |     `""`      |                                                                                                              |
+| `DATA_PATH`    | The path to the data directory of this server.                                            |   `"data"`    | This can either be a relative path or an absolute path. Currently this directory only contains the log file. |
+| `SOCKET_PATH`  | The path to the unix socket this server should be listening on.                           |     `""`      | If this is not empty `HOST` and `PORT` will be ignored.                                                      |
+| `HOST`         | The address this server should be listening on.                                           | `"127.0.0.1"` |                                                                                                              |
+| `PORT`         | The port this server should be using.                                                     |    `3000`     |                                                                                                              |
+| `REDIS_URL`    | The URL of the redis server.                                                              |     `""`      | Format: `redis[s]://[[username][:password]@][host][:port][/db-number]`                                       |
+| `REDIS_SOCKET` | The path to the unix socket of the redis server.                                          |     `""`      | If this is not empty `REDIS_URL` will be ignored.                                                            |
 
 ## Contribute
 
