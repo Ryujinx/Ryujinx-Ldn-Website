@@ -10,8 +10,7 @@ if (process.env.SOCKET_PATH != null && process.env.SOCKET_PATH.length > 0) {
     readableAll: true,
     writableAll: true,
   });
-}
-else {
+} else {
   server.listen(parseInt(env.PORT || "3000"), env.HOST || "127.0.0.1");
 }
 
