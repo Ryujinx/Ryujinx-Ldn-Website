@@ -36,9 +36,10 @@ let
 
     postInstall = ''
       mv "$lib/node_modules/$pname/dist" "$lib/node_modules/$pname/public" "$lib/node_modules/$pname/package.json" "$out/"
-      rm -rf "$out/bin" "$lib/node_modules/$pname"
+      rm -rf "$lib/node_modules/$pname"
 
       ln -s "$lib/node_modules" "$out/node_modules"
+      ln -s "$npm_config_nodedir/bin/node" "$out/bin/node"
     '';
   };
 
