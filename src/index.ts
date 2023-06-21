@@ -3,7 +3,13 @@ import { app, logger } from "./app";
 import http from "http";
 
 const server = http.createServer(app);
-server.listen(parseInt(env.PORT || "3000"), env.HOST || "127.0.0.1");
+
+if (process.env.SOCKET_PATH != null && process.env.SOCKET_PATH.length > 0) {
+  server.listen(process.env.SOCKET_PATH);
+}
+else {
+  server.listen(parseInt(env.PORT || "3000"), env.HOST || "127.0.0.1");
+}
 
 server.on("error", (error: Error) => {
   logger.error("An error occurred.", error);
