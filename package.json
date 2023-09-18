@@ -27,7 +27,7 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.2",
+    "@tsconfig/recommended": "^1.0.3",
     "@types/express": "^4.17.17",
     "@types/express-actuator": "^1.8.0",
     "@types/node": "^18.16.1",
