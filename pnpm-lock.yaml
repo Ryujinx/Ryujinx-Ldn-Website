@@ -29,8 +29,8 @@ devDependencies:
     specifier: ^4.17.17
     version: 4.17.17
   '@types/express-actuator':
-    specifier: ^1.8.0
-    version: 1.8.0
+    specifier: ^1.8.2
+    version: 1.8.2
   '@types/node':
     specifier: ^18.16.1
     version: 18.16.1
@@ -225,8 +225,8 @@ packages:
       '@types/node': 18.16.1
     dev: true
 
-  /@types/express-actuator@1.8.0:
-    resolution: {integrity: sha512-dNjiuD7Xzd5lVkjJ7Gngq5Oak4lwNtdd/YTP6ozRxsf2Y9WXrNjW0+tVc8ZeSD20SKQQAO4l5Kt6vaFk6iqiVg==}
+  /@types/express-actuator@1.8.2:
+    resolution: {integrity: sha512-XfirnQ86KnUg3LgztN2zsrWW8wwFgSdwiXfbpC/8iH+CYaYA1aCKHbzXiaZmDEVtXRifR6JuWvFcPvPc5zh30g==}
     dependencies:
       '@types/express': 4.17.17
     dev: true
