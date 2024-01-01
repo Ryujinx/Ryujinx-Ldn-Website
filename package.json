@@ -13,11 +13,12 @@
     "format": "prettier -w .",
     "lint": "eslint --fix .",
     "build": "tsc",
-    "prestart": "pnpm build",
+    "prestart": "npm build",
     "start": "node .",
-    "dev": "pnpm build && pnpm start",
+    "dev": "npm build && npm start",
     "serve": "nodemon",
-    "prepack": "pnpm build"
+    "prepack": "npm build",
+    "release": "tsc"
   },
   "dependencies": {
     "ejs": "^3.1.9",

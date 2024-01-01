@@ -1,46 +1,28 @@
 { pkgs ? (import <nixpkgs> {})}:
 with pkgs;
-with (import (fetchFromGitHub {
-  owner = "TSRBerry";
-  repo = "pnpm2nix";
-  rev = "8df6e2a8bd0174f4e9fa858d37c08ff3e91019bc";
-  sha256 = "YhWzfuqNCZmKMbcoDoAT52KodjpuNj/7MklwKD0ojrg=";
-}) { inherit pkgs; });
-
-
 let
 
-  buildPackage = mkPnpmPackage {
-    src = nix-gitignore.gitignoreSource [] ./.;
+  package = buildNpmPackage {
+    pname = "ryujinx-ldn-website";
+    version = "1.0.0";
 
-    linkDevDependencies = true;
+    #linkDevDependencies = true;
 
-    postBuild = ''
-      cp -R "node_modules/$pname"/* ./
+    src = ./.;
 
-      export PATH="node_modules/.bin:$PATH"
+    npmBuildScript = "release";
+    npmBuildFlags = [ "--" "--outDir" "dist" ];
+    installPhase = ''
+      runHook preInstall
+      cp -r dist $out/
+      cp -r public package.json package-lock.json node_modules $out/
 
-      mkdir -p "$out/dist"
+      makeWrapper '${nodejs}/bin/node' "$out/bin/ryujinx-ldn-website" --add-flags "$out/index.js"
 
-      npm run build -- --outDir "$out/dist"
-      mv public package.json pnpm-lock.yaml "$out/"
+      runHook postInstall
     '';
 
-    postInstall = ''
-      rm -rf "$out/bin" "$lib/node_modules/$pname"
-    '';
-  };
-
-  package = mkPnpmPackage {
-    src = buildPackage;
-
-    postInstall = ''
-      mv "$lib/node_modules/$pname/dist" "$lib/node_modules/$pname/public" "$lib/node_modules/$pname/package.json" "$out/"
-      rm -rf "$lib/node_modules/$pname"
-
-      ln -s "$lib/node_modules" "$out/node_modules"
-      ln -s "$npm_config_nodedir/bin/node" "$out/bin/node"
-    '';
+    npmDepsHash = "sha256-Wo4dGsUAZwXbkuWwTKNA5kv4ZUnekdKm/TagP4Q4Ds8=";
   };
 
 in package

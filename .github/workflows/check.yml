@@ -15,17 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: pnpm/action-setup@v2
-      with:
-        version: latest
-
     - uses: actions/setup-node@v3
       with:
         node-version-file: ".nvmrc"
-        cache: "pnpm"
+        cache: "npm"
 
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: npm ci
 
     - name: Run ESLint
       run: node_modules/.bin/eslint .
@@ -35,17 +31,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: pnpm/action-setup@v2
-      with:
-        version: latest
-
     - uses: actions/setup-node@v3
       with:
         node-version-file: ".nvmrc"
-        cache: "pnpm"
+        cache: "npm"
 
     - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      run: npm ci
 
     - name: Run Prettier
       run: node_modules/.bin/prettier -c .
@@ -55,17 +47,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
-
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          cache: "pnpm"
+          cache: "npm"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Build package
-        run: pnpm build
+        run: npm run build

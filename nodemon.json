@@ -9,5 +9,5 @@
         "views"
     ],
     "ext": "ts,js,html,css,ejs,png",
-    "exec": "pnpm run dev"
+    "exec": "npm run dev"
 }
