@@ -37,7 +37,7 @@
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "nodemon": "^3.0.1",
-    "prettier": "3.0.3",
+    "prettier": "3.2.5",
     "typescript": "^5.2.2"
   }
 }
